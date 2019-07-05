@@ -2,7 +2,7 @@
 % Please edit documentation in R/nodesCom.R
 \name{nodesCom}
 \alias{nodesCom}
-\title{Get the common nodes from two networks}
+\title{Get the paired nodes which shared neighbors from two networks}
 \usage{
 nodesCom(net1, net2)
 }
@@ -12,16 +12,16 @@ nodesCom(net1, net2)
 \item{net2}{The input network, which should be a graph object}
 }
 \value{
-A vector of gene symbols
+A matrix of paired nodes
 }
 \description{
-Get the common nodes from two networks
+Get the paired nodes which shared neighbors from two networks
 }
 \details{
-subnet(net1,net2)
+nodesCom(net1,net2)
 }
 \examples{
 
- Aligned <- nodesCom(NOR2ADE.net,ADE2CAR.net)
+ paired <- nodesCom(TCGA-AF-2687.net,TCGA-A6-2686.net)
 
 }
