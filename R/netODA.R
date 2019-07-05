@@ -1,8 +1,8 @@
-#' @title Calculate the Graphlet degree distribution (GDD) agreement between two networks
+#' @title Calculate the orbit distribution agreement (ODA) between two networks
 #'
-#' @description Calculate the Graphlet degree distribution (GDD) agreement between two networks
+#' @description Calculate the orbit distribution agreement (ODA) between two networks
 #'
-#' @details netGDD(net1,net2,mean='arithmetic',i2inc=T)
+#' @details netODA(net1,net2,mean='arithmetic',net2edge=T)
 #'
 #' @param net1 The input network, which should be one of incgraph and igraph objects
 #'
@@ -10,35 +10,29 @@
 #'
 #' @param  mean "arithmetic" or "geometric" mean to be used
 #'
-#' @param  i2inc Whether the input graph object should to transformed into incgraph object
+#' @param  net2edge Whether the input graph object should to transformed into a edge matrix
 #'
 #' @return Agreement value between 0 and 1
 #'
 #' @examples
 #'
-#'  nodes <-names(igraph::V(databases.net))
+#'  netODA(TCGA-AF-2687.net, TCGA-A6-2686.net)
 #'
-#'  net1 <-subnet(databases.net,sample(nodes,100))
-#'
-#'  net2 <-subnet(databases.net,sample(nodes,100))
-#'
-#'  netGDD(net1,net2)
-#'
-#' @export netGDD
+#' @export netODA
 
-netGDD <- function(net1,net2,mean='arithmetic',i2inc=T){
+netODA <- function(net1,net2,mean='arithmetic',net2edge=T){
 
   mean <- match.arg(mean,c("arithmetic", "geometric"))
 
-  if (i2inc) {
-    net1 <- incgraph::new.incgraph.network(links=igraph::get.edgelist(net1,names = F))
+  if (net2edge) {
+    net1 <- t(apply(igraph::get.edgelist(net1,names = F),1,as.integer))
 
-    net2 <- incgraph::new.incgraph.network(links=igraph::get.edgelist(net2,names = F))
+    net2 <- t(apply(igraph::get.edgelist(net2,names = F),1,as.integer))
   }
 
-  net1.orb.counts <- incgraph::calculate.orbit.counts(net1)
+  net1.orb.counts <- orca::count5(net1)
 
-  net2.orb.counts <- incgraph::calculate.orbit.counts(net2)
+  net2.orb.counts <- orca::count5(net2)
 
   net1.orbS <- apply(net1.orb.counts,2,function(x){
                      tmp<-as.data.frame(table(x));tmp[,1]<-as.character(tmp[,1]);return(tmp)})

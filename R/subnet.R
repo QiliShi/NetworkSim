@@ -28,14 +28,28 @@ subnet <- function(net,nodes,impl="auto",neighbors=F,delete=T)
   
   nodes <- nodes[nodes%in%names(igraph::V(net))]
   
-  if (!neighbors){
+  if (length(nodes)!=0){
+  
+    if (!neighbors){
     
-    subgraph <- igraph::induced.subgraph(net,vids =nodes,impl =impl)
-  }
+      subgraph <- igraph::induced.subgraph(net,vids =nodes,impl =impl)
+    }
+    else{
+      if (length(nodes)==1) {
+        Neighbors <-names(igraph::neighbors(net,v=nodes))
+      }
+      else{
+        Neighbors <-do.call(c,sapply(nodes, function(x) names(igraph::neighbors(net,v=x))))
+      }
+      nodes <- unique(c(Neighbors,nodes))
+      subgraph <- igraph::induced.subgraph(net,vids = nodes)
+    }
+  } 
   else{
-    Neighbors <-do.call(c,sapply(nodes, function(x) names(igraph::neighbors(net,v=x))))
-    nodes <- unique(c(Neighbors,nodes))
-    subgraph <- igraph::induced.subgraph(net,vids = nodes)
+    
+    pseudo <- data.frame('pseudo1','pseudo2')
+    
+    subgraph <- igraph::graph.data.frame(pseudo,directed = F)
   }
   
   if (delete){

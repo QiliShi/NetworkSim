@@ -7,38 +7,49 @@
 #'
 "databases.net"
 
-#' DEGs between colonic normals and adenomas
+#' Mutated genes in the sample TCGA_AF_2687
 #'
-#' A dataset containing 4567 differentially expressed genes between normals and adenomas
+#' A dataset containing Mutated genes
 #'
 #'
-#' @format A  character vector
+#' @format A  list
 #'
-"NOR2ADE.DEGs"
+"TCGA_AF_2687.Muts"
 
-#' DEGs of the adenoma-carcinoma transition
+#' Mutated genes in the sample TCGA_A6_2686
 #'
-#' A dataset containing 1290 DEGs of the adenoma-carcinoma transition
+#' A dataset containing Mutated genes
 #'
 #'
-#' @format A  character vector
+#' @format A  list
 #'
-"ADE2CAR.DEGs"
+"TCGA_A6_2686.Muts"
 
-#' PPI network of NOR2ADE.DEGs
+#' PPI network of the sample TCGA_AF_2687
 #'
-#' A dataset containing the PPI network consisted of DEGs between colonic normals and adenomas
+#' A dataset containing a PPI network 
 #'
 #'
 #' @format A igraph object
 #'
-"NOR2ADE.net"
+"TCGA_AF_2687.net"
 
-#' PPI network of ADE2CAR.DEGs
+#' PPI network of the sample TCGA_A6_2686
 #'
-#' A dataset containing the PPI network consisted of DEGs between colonic adenomas and carcinomas
+#' A dataset containing a PPI network 
 #'
 #'
 #' @format A igraph object
 #'
-"ADE2CAR.net"
+"TCGA_A6_2686.net"
+
+#' PPI networks of the ten samples with colon adenocarcinoma 
+#'
+#' A dataset containing PPI networks 
+#'
+#'
+#' @format A list 
+#'
+"COAD.net"
+
+
