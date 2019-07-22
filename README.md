@@ -11,7 +11,7 @@ NetworkSim, an R package that provides two different ways for undirected network
 Installation
 ------------
 
-NetworkSim currently needs to be installed using devtools. The igraph and orca packages also needs to be installed.
+NetworkSim currently needs to be installed using devtools. The igraph and orca packages also need to be installed.
 
 ``` r
 devtools::install_github("QiliShi/NetworkSim")
@@ -41,19 +41,17 @@ library(igraph)
 ``` r
 small_net1 <-subnet(databases.net,nodes = c(names(neighbors(databases.net,'TP53')),'TP53')[1:75],neighbors = F)
 small_net2 <-subnet(databases.net,nodes = c(names(neighbors(databases.net,'TP53')),'TP53')[40:120],neighbors = F)
-middle_net1 <-subnet(databases.net,nodes = c(names(neighbors(databases.net,'TP53')),'TP53')[1:300],neighbors = F)
 
+middle_net1 <-subnet(databases.net,nodes = c(names(neighbors(databases.net,'TP53')),'TP53')[1:300],neighbors = F)
 middle_net2 <-subnet(databases.net,nodes = c(names(neighbors(databases.net,'TP53')),'TP53')[150:450],neighbors = F)
 
 nodes <- c(names(neighbors(databases.net,'TP53')),'TP53',names(neighbors(databases.net,'MYC')),'MYC',
            names(neighbors(databases.net,'APP')))
 large_net1 <-subnet(databases.net,nodes = nodes[1:2000],neighbors = F)
-
 large_net2 <-subnet(databases.net,nodes = nodes[500:3300],neighbors = F)
+
 nodes <- names(V(databases.net))
-
 Vlarge_net1 <-subnet(databases.net,nodes = sample(nodes,15000),neighbors = F)
-
 Vlarge_net2 <-subnet(databases.net,nodes = sample(nodes,15000),neighbors = F)
 ```
 
@@ -64,21 +62,21 @@ system.time(paired <- nodesCom(middle_net1,middle_net2))
 ```
 
     ##    user  system elapsed 
-    ##    0.92    0.01    1.08
+    ##    0.90    0.01    1.12
 
 ``` r
 system.time(netSE(middle_net1,middle_net2,paired[1,1],paired[1,2]))
 ```
 
     ##    user  system elapsed 
-    ##    0.02    0.00    0.01
+    ##    0.01    0.00    0.01
 
 ``` r
 system.time(netODA(middle_net1,middle_net2))
 ```
 
     ##    user  system elapsed 
-    ##    2.00    0.02    2.08
+    ##    1.82    0.02    2.34
 
 Examples
 --------
@@ -91,7 +89,7 @@ Create the input networks with igraph types
 TCGA_AF_2687.net<-subnet(net=databases.net, nodes=TCGA_AF_2687.Muts)
 ```
 
-2.Create networks from user's own data, which should be a data frame containing a symbolic edge list in the two columns.
+2.Create networks from user's own data, which should be a data frame containing a symbolic edge list in the two columns. For example:
 
 ``` r
 library(sand)
